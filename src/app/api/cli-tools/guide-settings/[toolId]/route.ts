@@ -257,7 +257,8 @@ async function saveQwenConfig({ baseUrl, apiKey, model }) {
  * keys, but make sure the OmniRoute provider entry is present and selected.
  */
 async function saveHermesConfig({ baseUrl, apiKey, model }) {
-  const configPath = getCliPrimaryConfigPath("hermes") || path.join(os.homedir(), ".hermes", "config.yaml");
+  const configPath =
+    getCliPrimaryConfigPath("hermes") || path.join(os.homedir(), ".hermes", "config.yaml");
   const configDir = path.dirname(configPath);
 
   await fs.mkdir(configDir, { recursive: true });
@@ -265,7 +266,9 @@ async function saveHermesConfig({ baseUrl, apiKey, model }) {
   const normalizedBaseUrl = String(baseUrl || "")
     .trim()
     .replace(/\/+$/, "");
-  const providerBaseUrl = normalizedBaseUrl.endsWith("/v1") ? normalizedBaseUrl : `${normalizedBaseUrl}/v1`;
+  const providerBaseUrl = normalizedBaseUrl.endsWith("/v1")
+    ? normalizedBaseUrl
+    : `${normalizedBaseUrl}/v1`;
 
   if (!model) {
     return NextResponse.json({ error: "model is required for Hermes" }, { status: 400 });
@@ -296,7 +299,12 @@ async function saveHermesConfig({ baseUrl, apiKey, model }) {
       omniroute: {
         ...((existingConfig.providers && existingConfig.providers.omniroute) || {}),
         base_url: providerBaseUrl,
-        api_key: apiKey || ((existingConfig.providers && existingConfig.providers.omniroute && existingConfig.providers.omniroute.api_key) || ""),
+        api_key:
+          apiKey ||
+          (existingConfig.providers &&
+            existingConfig.providers.omniroute &&
+            existingConfig.providers.omniroute.api_key) ||
+          "",
       },
     },
   };
@@ -309,5 +317,3 @@ async function saveHermesConfig({ baseUrl, apiKey, model }) {
     configPath,
   });
 }
-
-

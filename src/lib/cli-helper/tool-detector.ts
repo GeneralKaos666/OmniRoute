@@ -21,11 +21,14 @@ export interface DetectedTool {
   configContents?: string;
 
   // Rich per-role status for Hermes Agent
-  hermesAgentRoles?: Record<string, {
-    model: string;
-    provider?: string;
-    usingOmniRoute: boolean;
-  }>;
+  hermesAgentRoles?: Record<
+    string,
+    {
+      model: string;
+      provider?: string;
+      usingOmniRoute: boolean;
+    }
+  >;
 }
 
 const TOOLS = [
@@ -119,7 +122,8 @@ export async function detectTool(id: string): Promise<DetectedTool | null> {
       const richRoles: Record<string, any> = {};
 
       Object.entries(roles).forEach(([role, info]) => {
-        const usingOmni = info?.provider === "omniroute" ||
+        const usingOmni =
+          info?.provider === "omniroute" ||
           (info?.base_url || "").includes("20128") ||
           (info?.base_url || "").includes("localhost:20128");
 

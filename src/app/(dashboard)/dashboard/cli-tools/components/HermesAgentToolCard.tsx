@@ -11,7 +11,11 @@ interface Role {
 
 const HERMES_ROLES: Role[] = [
   { id: "default", label: "Default (main)", description: "Primary conversation model" },
-  { id: "delegation", label: "Delegation (subagents)", description: "Orchestrator and sub-agent model" },
+  {
+    id: "delegation",
+    label: "Delegation (subagents)",
+    description: "Orchestrator and sub-agent model",
+  },
   { id: "vision", label: "Vision", description: "Image and screenshot understanding" },
   { id: "compression", label: "Compression", description: "Prompt compression & summarization" },
   { id: "web_extract", label: "Web Extract", description: "Web page content extraction" },
@@ -60,9 +64,11 @@ export default function HermesAgentToolCard({
   useEffect(() => {
     if (isExpanded) {
       // Phase 3: Seed from detector snapshot (batchStatus) for instant UI
-      if (!seededFromBatchRef.current && 
-          Object.keys(currentRoles).length === 0 && 
-          batchStatus?.hermesAgentRoles) {
+      if (
+        !seededFromBatchRef.current &&
+        Object.keys(currentRoles).length === 0 &&
+        batchStatus?.hermesAgentRoles
+      ) {
         const seeded: Record<string, any> = {};
         Object.entries(batchStatus.hermesAgentRoles).forEach(([role, info]: [string, any]) => {
           seeded[role] = {
@@ -252,10 +258,7 @@ export default function HermesAgentToolCard({
   return (
     <Card padding="sm" className="overflow-hidden">
       {/* Collapsed header — exact match to OpenClaw / Kilo / other Auto-Configured entries */}
-      <div
-        className="flex items-center justify-between hover:cursor-pointer"
-        onClick={onToggle}
-      >
+      <div className="flex items-center justify-between hover:cursor-pointer" onClick={onToggle}>
         <div className="flex items-center gap-3">
           <div className="size-8 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[22px] text-text-muted">terminal</span>
@@ -274,8 +277,8 @@ export default function HermesAgentToolCard({
                   </span>
                 )}
               </h3>
-              {(Object.keys(currentRoles).length > 0 || 
-                Object.keys(selections).length > 0 || 
+              {(Object.keys(currentRoles).length > 0 ||
+                Object.keys(selections).length > 0 ||
                 Object.keys(batchStatus?.hermesAgentRoles || {}).length > 0) && (
                 <span className="text-[10px] px-1.5 py-px rounded bg-emerald-500/10 text-emerald-600">
                   {configuredRolesCount}/{HERMES_ROLES.length} roles
@@ -368,7 +371,9 @@ export default function HermesAgentToolCard({
                   {/* Left: role label + subtitle (now has room so long descriptions stay on one line) */}
                   <div className="min-w-0 pr-3">
                     <div className="font-medium text-sm text-text-main">{role.label}</div>
-                    <div className="text-[10px] leading-tight text-text-muted">{role.description}</div>
+                    <div className="text-[10px] leading-tight text-text-muted">
+                      {role.description}
+                    </div>
                   </div>
 
                   {/* Right cluster: model name + status badge + actions (pushed to the right) */}
@@ -392,7 +397,8 @@ export default function HermesAgentToolCard({
                             : "bg-emerald-500/10 text-emerald-600"
                         }`}
                       >
-                        {badge.label}{badge.pending ? " *" : ""}
+                        {badge.label}
+                        {badge.pending ? " *" : ""}
                       </div>
                     )}
 
@@ -453,7 +459,11 @@ export default function HermesAgentToolCard({
               variant="ghost"
               size="sm"
               onClick={handleTogglePreview}
-              disabled={isSaving || isLoading || (Object.keys(selections).length === 0 && Object.keys(currentRoles).length === 0)}
+              disabled={
+                isSaving ||
+                isLoading ||
+                (Object.keys(selections).length === 0 && Object.keys(currentRoles).length === 0)
+              }
               loading={isPreviewLoading}
             >
               <span className="material-symbols-outlined text-[14px] mr-1">visibility</span>
@@ -462,7 +472,8 @@ export default function HermesAgentToolCard({
 
             {Object.keys(selections).length > 0 && (
               <span className="text-xs text-text-muted ml-1">
-                {Object.keys(selections).length} role{Object.keys(selections).length === 1 ? "" : "s"} will be updated
+                {Object.keys(selections).length} role
+                {Object.keys(selections).length === 1 ? "" : "s"} will be updated
               </span>
             )}
 
@@ -510,4 +521,3 @@ export default function HermesAgentToolCard({
     </Card>
   );
 }
-

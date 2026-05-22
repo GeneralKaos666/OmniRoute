@@ -47,7 +47,6 @@ describe("tool-detector", () => {
       assert.ok(result!.configPath.includes(".hermes/config.yaml"));
       assert.strictEqual(typeof result!.configured, "boolean");
     });
-
   });
 
   describe("detectAllTools", () => {

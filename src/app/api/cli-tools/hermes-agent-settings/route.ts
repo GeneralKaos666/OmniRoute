@@ -4,7 +4,10 @@ import path from "path";
 import os from "os";
 import { requireCliToolsAuth } from "@/lib/api/requireCliToolsAuth";
 import { getCliPrimaryConfigPath } from "@/shared/services/cliRuntime";
-import { generateHermesAgentConfig, getCurrentHermesAgentRoles } from "@/lib/cli-helper/config-generator/hermes-agent";
+import {
+  generateHermesAgentConfig,
+  getCurrentHermesAgentRoles,
+} from "@/lib/cli-helper/config-generator/hermes-agent";
 
 /**
  * Dedicated endpoint for Hermes Agent (the advanced Nous Research terminal agent).

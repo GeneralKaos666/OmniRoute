@@ -112,7 +112,9 @@ export default function ProviderQuotaWidget() {
       {/* Header with title + Refresh All in upper right */}
       <div className="flex items-center justify-between border-b border-border px-4 py-3 bg-surface/60">
         <div className="flex items-center gap-2">
-          <span className="material-symbols-outlined text-primary text-[20px]">account_balance</span>
+          <span className="material-symbols-outlined text-primary text-[20px]">
+            account_balance
+          </span>
           <div>
             <h3 className="font-semibold text-base">{t("providerQuota") || "Provider Quota"}</h3>
             <p className="text-[11px] text-text-muted -mt-0.5">
@@ -127,7 +129,9 @@ export default function ProviderQuotaWidget() {
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-bg-subtle text-xs font-medium text-text-main disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface transition-colors"
           title={t("refreshAll") || "Refresh All"}
         >
-          <span className={`material-symbols-outlined text-[16px] ${refreshingAll ? "animate-spin" : ""}`}>
+          <span
+            className={`material-symbols-outlined text-[16px] ${refreshingAll ? "animate-spin" : ""}`}
+          >
             refresh
           </span>
           <span>{t("refreshAll") || "Refresh All"}</span>
@@ -144,7 +148,9 @@ export default function ProviderQuotaWidget() {
         ) : providerEntries.length === 0 ? (
           <div className="text-center py-6 text-sm text-text-muted">
             No quota-supported providers connected yet.
-            <div className="mt-1 text-xs">Add accounts on the Providers page to see quota status here.</div>
+            <div className="mt-1 text-xs">
+              Add accounts on the Providers page to see quota status here.
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">

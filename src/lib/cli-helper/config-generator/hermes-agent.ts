@@ -31,16 +31,20 @@ import os from "node:os";
 import * as yaml from "js-yaml";
 
 export const HERMES_AGENT_ROLES = [
-  { id: "default",      label: "Default (main)",          description: "Primary conversation model" },
-  { id: "delegation",   label: "Delegation (subagents)",  description: "Orchestrator and sub-agent spawning model" },
-  { id: "vision",       label: "Vision",                  description: "Image and screenshot understanding" },
-  { id: "compression",  label: "Compression",             description: "Prompt compression and summarization" },
-  { id: "web_extract",  label: "Web Extract",             description: "Web page / content extraction" },
-  { id: "skills_hub",   label: "Skills Hub",              description: "Skills and tool-use reasoning" },
-  { id: "approval",     label: "Approval",                description: "Safety and approval decisions" },
+  { id: "default", label: "Default (main)", description: "Primary conversation model" },
+  {
+    id: "delegation",
+    label: "Delegation (subagents)",
+    description: "Orchestrator and sub-agent spawning model",
+  },
+  { id: "vision", label: "Vision", description: "Image and screenshot understanding" },
+  { id: "compression", label: "Compression", description: "Prompt compression and summarization" },
+  { id: "web_extract", label: "Web Extract", description: "Web page / content extraction" },
+  { id: "skills_hub", label: "Skills Hub", description: "Skills and tool-use reasoning" },
+  { id: "approval", label: "Approval", description: "Safety and approval decisions" },
 ] as const;
 
-export type HermesAgentRole = typeof HERMES_AGENT_ROLES[number]["id"];
+export type HermesAgentRole = (typeof HERMES_AGENT_ROLES)[number]["id"];
 
 export interface HermesAgentRoleSelection {
   role: HermesAgentRole;

@@ -34,7 +34,6 @@ for (const [id, alias] of Object.entries(PROVIDER_ID_TO_ALIAS)) {
 // opencode/ → opencode-zen (the main free/open tier; opencode-go is a separate paid tier)
 ALIAS_TO_PROVIDER_ID["opencode"] = "opencode-zen";
 
-
 // Manual aliases for external compatibility not covered by PROVIDER_ID_TO_ALIAS.
 // OpenCode's Zen provider now uses the "opencode" slug, but OmniRoute registers
 // it as "opencode-zen". This alias ensures `opencode/<model>` resolves correctly.

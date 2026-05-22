@@ -95,7 +95,9 @@ test("guide-settings POST creates new hermes config.yaml if it doesn't exist", a
     apiKey: "sk-hermes",
     model: "gpt-5.4-mini",
   });
-  const response = (await guideSettingsRoute.POST(req, { params: { toolId: "hermes" } })) as Response;
+  const response = (await guideSettingsRoute.POST(req, {
+    params: { toolId: "hermes" },
+  })) as Response;
   const data = (await response.json()) as any;
 
   assert.equal(response.status, 200, "Response should be OK");
@@ -108,7 +110,6 @@ test("guide-settings POST creates new hermes config.yaml if it doesn't exist", a
   assert.equal(content.providers?.omniroute?.base_url, "http://my-omni/v1");
   assert.ok(String(content.providers?.omniroute?.api_key || "").startsWith("sk-"));
 });
-
 
 test("guide-settings POST merges into existing qwen settings.json", async () => {
   await fs.mkdir(path.dirname(QWEN_CONFIG_PATH), { recursive: true });

@@ -85,7 +85,8 @@ describe("config-generator", () => {
 
   describe("hermes-agent (rich multi-role)", () => {
     it("exports HERMES_AGENT_ROLES with expected roles", async () => {
-      const hermesAgent = await import("../../../src/lib/cli-helper/config-generator/hermes-agent.ts");
+      const hermesAgent =
+        await import("../../../src/lib/cli-helper/config-generator/hermes-agent.ts");
       assert.ok(Array.isArray(hermesAgent.HERMES_AGENT_ROLES));
       const ids = hermesAgent.HERMES_AGENT_ROLES.map((r: any) => r.id);
       assert.ok(ids.includes("default"));
@@ -95,13 +96,15 @@ describe("config-generator", () => {
     });
 
     it("getCurrentHermesAgentRoles returns an object", async () => {
-      const hermesAgent = await import("../../../src/lib/cli-helper/config-generator/hermes-agent.ts");
+      const hermesAgent =
+        await import("../../../src/lib/cli-helper/config-generator/hermes-agent.ts");
       const roles = await hermesAgent.getCurrentHermesAgentRoles();
       assert.ok(typeof roles === "object" && roles !== null);
     });
 
     it("generateHermesAgentConfig returns yaml string for valid payload", async () => {
-      const hermesAgent = await import("../../../src/lib/cli-helper/config-generator/hermes-agent.ts");
+      const hermesAgent =
+        await import("../../../src/lib/cli-helper/config-generator/hermes-agent.ts");
       const result = await hermesAgent.generateHermesAgentConfig({
         baseUrl: "http://localhost:20128",
         apiKey: "sk-test-omniroute",
@@ -119,7 +122,8 @@ describe("config-generator", () => {
     });
 
     it("generateHermesAgentConfig includes auxiliary section for non-default roles", async () => {
-      const hermesAgent = await import("../../../src/lib/cli-helper/config-generator/hermes-agent.ts");
+      const hermesAgent =
+        await import("../../../src/lib/cli-helper/config-generator/hermes-agent.ts");
       const result = await hermesAgent.generateHermesAgentConfig({
         baseUrl: "http://localhost:20128",
         apiKey: "sk-test",
@@ -134,7 +138,8 @@ describe("config-generator", () => {
     });
 
     it("generateHermesAgentConfig returns error when baseUrl is missing", async () => {
-      const hermesAgent = await import("../../../src/lib/cli-helper/config-generator/hermes-agent.ts");
+      const hermesAgent =
+        await import("../../../src/lib/cli-helper/config-generator/hermes-agent.ts");
       const result = await hermesAgent.generateHermesAgentConfig({
         baseUrl: "",
         selections: [{ role: "default", model: "x" }],
@@ -145,7 +150,8 @@ describe("config-generator", () => {
     });
 
     it("generateHermesAgentConfig correctly structures delegation and auxiliary roles", async () => {
-      const hermesAgent = await import("../../../src/lib/cli-helper/config-generator/hermes-agent.ts");
+      const hermesAgent =
+        await import("../../../src/lib/cli-helper/config-generator/hermes-agent.ts");
       const result = await hermesAgent.generateHermesAgentConfig({
         baseUrl: "http://localhost:20128",
         apiKey: "sk-test",
@@ -166,7 +172,8 @@ describe("config-generator", () => {
 
     it("generateHermesAgentConfig performs non-destructive merge (preserves other keys)", async () => {
       // This test mainly verifies the function doesn't blow away unrelated config
-      const hermesAgent = await import("../../../src/lib/cli-helper/config-generator/hermes-agent.ts");
+      const hermesAgent =
+        await import("../../../src/lib/cli-helper/config-generator/hermes-agent.ts");
       const result = await hermesAgent.generateHermesAgentConfig({
         baseUrl: "http://localhost:20128",
         apiKey: "sk-test",

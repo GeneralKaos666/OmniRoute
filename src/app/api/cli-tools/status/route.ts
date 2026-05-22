@@ -151,7 +151,16 @@ export async function GET(request: Request) {
     );
 
     // Check config status for installed+runnable tools via direct file reads
-    const settingsTools = ["claude", "codex", "droid", "openclaw", "cline", "kilo", "qwen", "hermes"];
+    const settingsTools = [
+      "claude",
+      "codex",
+      "droid",
+      "openclaw",
+      "cline",
+      "kilo",
+      "qwen",
+      "hermes",
+    ];
 
     await Promise.all(
       settingsTools.map(async (toolId) => {

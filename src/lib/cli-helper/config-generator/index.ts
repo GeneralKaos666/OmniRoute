@@ -48,8 +48,6 @@ const TOOL_CONFIG_PATHS: Record<string, string> = {
   "hermes-agent": path.join(os.homedir(), ".hermes", "config.yaml"),
 };
 
-
-
 type ConfigGenerator = (options: GenerateOptions) => string | Promise<string>;
 
 const GENERATORS: Record<string, ConfigGenerator> = {
@@ -94,7 +92,15 @@ export async function generateConfig(
 }
 
 export async function generateAllConfigs(options: GenerateOptions): Promise<GenerateResult[]> {
-  const toolIds = ["claude", "codex", "opencode", "cline", "kilocode", "continue", "hermes"] as const;
+  const toolIds = [
+    "claude",
+    "codex",
+    "opencode",
+    "cline",
+    "kilocode",
+    "continue",
+    "hermes",
+  ] as const;
   const results = await Promise.allSettled(toolIds.map((id) => generateConfig(id, options)));
 
   return results.map((r) =>
