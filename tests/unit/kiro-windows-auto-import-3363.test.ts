@@ -12,11 +12,15 @@ import path from "node:path";
 // @ts-ignore — better-sqlite3 has no bundled types in this project
 import Database from "better-sqlite3";
 
+// Set DATA_DIR before importing any app modules so isAuthRequired() reads from
+// a fresh, empty settings DB (no password → requireLogin defaults to false).
+const TEST_DATA_DIR = fs.mkdtempSync(path.join(os.tmpdir(), "omniroute-kiro-3363-data-"));
+process.env.DATA_DIR = TEST_DATA_DIR;
+
+const core = await import("../../src/lib/db/core.ts");
+
 // Import the GET handler at the module level so the DB is initialised once
-// before any test runs. The route is auth-guarded but isAuthRequired() returns
-// false for loopback requests that have no password configured (default dev /
-// test environment), so a plain Request to http://localhost/... goes straight
-// through to the credential-detection logic.
+// before any test runs.
 const { GET } = await import("../../src/app/api/oauth/kiro/auto-import/route.ts");
 
 const ORIGINAL_HOME = process.env.HOME;
@@ -27,6 +31,10 @@ let tmpHome: string;
 
 test.beforeEach(() => {
   tmpHome = fs.mkdtempSync(path.join(os.tmpdir(), "omniroute-kiro-3363-"));
+  // Reset DB instance so each test gets a clean settings DB (no requireLogin).
+  core.resetDbInstance();
+  fs.rmSync(TEST_DATA_DIR, { recursive: true, force: true });
+  fs.mkdirSync(TEST_DATA_DIR, { recursive: true });
   // Override HOME so homedir() returns a temp dir where no kiro-cli DB exists.
   process.env.HOME = tmpHome;
   // Ensure APPDATA is unset by default; individual tests that need it set it.
@@ -42,6 +50,11 @@ test.afterEach(() => {
   }
   globalThis.fetch = ORIGINAL_FETCH;
   if (tmpHome) fs.rmSync(tmpHome, { recursive: true, force: true });
+});
+
+test.after(() => {
+  core.resetDbInstance();
+  fs.rmSync(TEST_DATA_DIR, { recursive: true, force: true });
 });
 
 // Helper to call the GET handler and parse the JSON body.
