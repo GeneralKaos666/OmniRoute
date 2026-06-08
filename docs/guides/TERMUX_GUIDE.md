@@ -1,7 +1,7 @@
 ---
 title: "Termux Headless Setup"
-version: 3.8.2
-lastUpdated: 2026-05-13
+version: 3.8.16
+lastUpdated: 2026-06-08
 ---
 
 # Termux Headless Setup
@@ -18,7 +18,7 @@ pkg upgrade
 pkg install nodejs-lts python build-essential git
 ```
 
-> **Node.js version:** OmniRoute requires Node `>=20.20.2 <21 || >=22.22.2 <23 || >=24.0.0 <27` (per `engines` in `package.json`). Termux's `nodejs-lts` typically ships Node 20 LTS, which is compatible. If `node --version` reports an older line, install `pkg install nodejs` (current) and verify the major matches a supported range.
+> **Node.js version:** OmniRoute requires Node `>=22.0.0 <23 || >=24.0.0 <27` (per `engines` in `package.json`). Termux's `nodejs-lts` typically ships Node 22 or 24 LTS, which is compatible.
 
 If native package compilation fails, rerun the `pkg install` command above and then retry the OmniRoute install.
 
@@ -36,6 +36,8 @@ You can also install it globally:
 npm install -g omniroute
 omniroute
 ```
+
+> **Note for Source Installs:** On Android, `npm install` will skip `@huggingface/transformers` because its dependency `onnxruntime-node` does not support the `android` platform. This means **Local Embeddings** (Memory Engine) using the Transformers.js provider are unavailable on Termux. Static/Remote embedding providers remain fully functional.
 
 ## Run
 
